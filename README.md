@@ -8,7 +8,7 @@ Built with **React + TypeScript + Vite + Supabase + Stripe**.
 
 ## Live Demo
 
-> **URL:** _Add your Vercel URL here_
+> **URL:** https://golf-charity-beta.vercel.app
 > **Test User:** `testuser@golfcharity.com` / `Test1234!`
 > **Admin User:** `admin@golfcharity.com` / `Admin1234!`
 
