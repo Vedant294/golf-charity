@@ -6,23 +6,31 @@ import Footer from './Footer';
 
 export default function Layout() {
   const [session, setSession] = useState<any>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
+      if (session?.user) checkRole(session.user.id);
     });
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
+      if (session?.user) checkRole(session.user.id);
+      else setIsAdmin(false);
     });
 
     return () => subscription.unsubscribe();
   }, []);
 
+  const checkRole = async (userId: string) => {
+    const { data } = await supabase.from('users').select('role').eq('id', userId).single();
+    setIsAdmin(data?.role === 'admin');
+  };
+
   const handleLogout = async () => {
     await supabase.auth.signOut();
+    setIsAdmin(false);
   };
 
   return (
@@ -40,7 +48,11 @@ export default function Layout() {
               <Link to="/charities" className="text-sm font-medium text-gray-300 hover:text-white transition hidden md:block">Partners</Link>
               {session ? (
                 <>
-                  <Link to="/dashboard" className="text-sm font-medium text-gray-300 hover:text-white transition">Dashboard</Link>
+                  {isAdmin ? (
+                    <Link to="/admin" className="text-sm font-medium text-primary hover:text-white transition">Admin Panel</Link>
+                  ) : (
+                    <Link to="/dashboard" className="text-sm font-medium text-gray-300 hover:text-white transition">Dashboard</Link>
+                  )}
                   <button onClick={handleLogout} className="text-gray-400 hover:text-red-400 transition ml-4 bg-background p-2 rounded-full border border-surfaceHover hover:border-red-400/50">
                     <LogOut size={18} />
                   </button>

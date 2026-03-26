@@ -62,9 +62,12 @@ export default function Auth() {
 
     try {
       if (isLogin) {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        navigate('/dashboard');
+        // Redirect admin to admin panel, users to dashboard
+        const { data: ud } = await supabase.from('users').select('role').eq('id', data.user.id).single();
+        if (ud?.role === 'admin') navigate('/admin');
+        else navigate('/dashboard');
       } else {
         const { data, error } = await supabase.auth.signUp({ 
           email, 
