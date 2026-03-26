@@ -2,17 +2,21 @@
 
 A subscription-based golf platform combining Stableford score tracking, monthly prize draws, and charitable giving.
 
-Built with **React + TypeScript + Vite + Supabase + Stripe**.
+Built with **React + TypeScript + Vite + Supabase + Stripe**.All PRD features implemented — subscription engine, score tracking, monthly draw system, prize pool distribution, charity integration, winner verification, and full admin control pane
 
----
+## Live Demo:  https://golf-charity-beta.vercel.app 
 
-## Live Demo
+**User Dashboard:** https://golf-charity-beta.vercel.app/dashboard
+Test User Login: Email: testuser@golfcharity.com 
+Password: Test1234!
 
-> **URL:** https://golf-charity-beta.vercel.app
-> **Test User:** `testuser@golfcharity.com` / `Test1234!`
-> **Admin User:** `admin@golfcharity.com` / `Admin1234!`
+**Admin Panel Login**: URL: https://golf-charity-beta.vercel.app/admin 
+Email: admin@golfcharity.com
+Password: Admin1234!
 
----
+
+
+
 
 ## Tech Stack
 
